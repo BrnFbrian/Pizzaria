@@ -2,34 +2,31 @@
 
 namespace App\Providers;
 
-use App\Contracts\FlavorServiceInterface;
-use App\Contracts\UserServiceInterface;
-use App\Services\FlavorService;
-use App\Services\UserService;
-use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
+use App\Repositories\Contracts\IRepositorioSabor;
+use App\Repositories\RepositorioSabor;
+use App\Services\Contracts\IServicoSabor;
+use App\Services\ServicoSabor;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register()
     {
-        $this->app->bind(UserServiceInterface::class, UserService::class);
-        $this->app->bind(FlavorServiceInterface::class, FlavorService::class);
+        // Registro dos repositórios de usuários
+        $this->app->bind(\App\Repositories\Contracts\IRepositorioUsuario::class, \App\Repositories\RepositorioUsuario::class);
+        
+        // Registro dos serviços de usuários
+        $this->app->bind(\App\Services\Contracts\IServicoUsuario::class, \App\Services\ServicoUsuario::class);
+
+        // Registro dos repositórios de sabores
+        $this->app->bind(IRepositorioSabor::class, RepositorioSabor::class);
+
+        // Registro dos serviços de sabores
+        $this->app->bind(IServicoSabor::class, ServicoSabor::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
+    public function boot()
     {
-        Passport::tokensExpireIn(Carbon::now()->addMinutes(60));
-
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
-
-        Passport::personalAccessTokensExpireIn(Carbon::now()->addMinutes(120));
+        //
     }
 }

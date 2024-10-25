@@ -14,6 +14,10 @@ use Laravel\Passport\TokenRepository;
  * @link https://github.com/ViniciusSCS
  * @date 2024-10-01 15:52:14
  * @copyright UniEVANGÉLICA
+ * 
+ * Alterado por: Felipe Brian - Matrícula: 2210360
+ * @date 2024-10-25 16:23:00
+ * @link https://github.com/BrnFbrian/Pizzaria
  */
 class AuthController extends Controller
 {
